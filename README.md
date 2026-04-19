@@ -43,29 +43,10 @@
 
 - [https://celestia-smiles-clinick.vercel.app/](https://celestia-smiles-clinick.vercel.app/)
 
-## Локальный запуск
-
-```bash
-npm install
-npm run dev
-```
-
-Локальный адрес по умолчанию:
-
-- `http://localhost:4321`
-
-## Сборка и проверка
-
-```bash
-npm run lint
-npm run build
-npm run preview
-```
-
 ## Репозиторий
 
 - GitHub: [https://github.com/samura-dev/Celestia-Smiles](https://github.com/samura-dev/Celestia-Smiles)
 
-## Разработка дизайна
+## Разработка
 
-- [meloddy.design](https://meloddydesign.ru/)
+- samura.dev
