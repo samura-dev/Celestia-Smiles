@@ -1,0 +1,166 @@
+[
+  {
+    "id": 1,
+    "role": "Ортодонт",
+    "name": "Андрей Волков",
+    "description": "Специалист по комплексному исправлению прикуса и элайнерам Spark.",
+    "imgKey": "doc1",
+    "experience": "12 лет",
+    "specialization": ["Исправление прикуса у взрослых и детей", "Лечение элайнерами", "Лингвальные брекеты"],
+    "categoryIds": ["orthodontics"]
+  },
+  {
+    "id": 2,
+    "role": "Эстетист",
+    "name": "Елена Смирнова",
+    "description": "Создает эстетические трансформации с помощью виниров премиум-класса.",
+    "imgKey": "doc2",
+    "experience": "9 лет",
+    "specialization": ["Керамические виниры", "Художественная реставрация", "Отбеливание Zoom 4"],
+    "categoryIds": ["esthetics", "prosthetics"]
+  },
+  {
+    "id": 3,
+    "role": "Эндодонтист",
+    "name": "Михаил Лебедев",
+    "description": "Специалист по лечению сложных корневых каналов под микроскопом.",
+    "imgKey": "doc3",
+    "experience": "15 лет",
+    "categoryIds": ["therapy"]
+  },
+  {
+    "id": 4,
+    "role": "Хирург-имплантолог",
+    "name": "Сергей Морозов",
+    "description": "Бережное удаление любой сложности и одномоментная имплантация.",
+    "imgKey": "doc4",
+    "experience": "18 лет",
+    "categoryIds": ["surgery", "implants"]
+  },
+  {
+    "id": 5,
+    "role": "Ортопед",
+    "name": "Дмитрий Комаров",
+    "description": "Восстановление функции и эстетики зубов коронками из диоксида циркония.",
+    "imgKey": "doc1",
+    "experience": "11 лет",
+    "categoryIds": ["prosthetics", "implants"]
+  },
+  {
+    "id": 6,
+    "role": "Пародонтолог",
+    "name": "Светлана Романова",
+    "description": "Лечение заболеваний десен современными лазерными методиками.",
+    "imgKey": "doc2",
+    "experience": "10 лет",
+    "categoryIds": ["hygiene", "therapy"]
+  },
+  {
+    "id": 7,
+    "role": "Гнатолог",
+    "name": "Виктор Ильин",
+    "description": "Лечение дисфункций ВНЧС и комплексная диагностика прикуса.",
+    "imgKey": "doc3",
+    "experience": "14 лет",
+    "categoryIds": ["orthodontics", "prosthetics"]
+  },
+  {
+    "id": 8,
+    "role": "Терапевт",
+    "name": "Анастасия Кузнецова",
+    "description": "Лечение кариеса под увеличением и подготовка к протезированию.",
+    "imgKey": "doc2",
+    "experience": "7 лет",
+    "categoryIds": ["therapy"]
+  },
+  {
+    "id": 9,
+    "role": "Гигиенист",
+    "name": "Юлия Белова",
+    "description": "Профессиональная гигиена и обучение правильному домашнему уходу.",
+    "imgKey": "doc2",
+    "experience": "5 лет",
+    "categoryIds": ["hygiene"]
+  },
+  {
+    "id": 10,
+    "role": "Хирург",
+    "name": "Александр Соколов",
+    "description": "Костная пластика и синус-лифтинг перед установкой имплантатов.",
+    "imgKey": "doc4",
+    "experience": "16 лет",
+    "categoryIds": ["surgery", "implants"]
+  },
+  {
+    "id": 11,
+    "role": "Детский врач",
+    "name": "Максим Петров",
+    "description": "Лечение зубов детям без боли и страха в игровой форме.",
+    "imgKey": "doc1",
+    "experience": "8 лет",
+    "categoryIds": ["children", "therapy"]
+  },
+  {
+    "id": 12,
+    "role": "Ортодонт",
+    "name": "Екатерина Попова",
+    "description": "Выравнивание зубов брекет-системами Damon у подростков.",
+    "imgKey": "doc2",
+    "experience": "11 лет",
+    "categoryIds": ["orthodontics", "children"]
+  },
+  {
+    "id": 13,
+    "role": "Терапевт",
+    "name": "Ольга Павлова",
+    "description": "Лечение глубокого кариеса и пульпита с сохранением живой пульпы.",
+    "imgKey": "doc2",
+    "experience": "13 лет",
+    "categoryIds": ["therapy"]
+  },
+  {
+    "id": 14,
+    "role": "Ортопед",
+    "name": "Иван Сидоров",
+    "description": "Протезирование на имплантатах по протоколам All-on-4.",
+    "imgKey": "doc3",
+    "experience": "12 лет",
+    "categoryIds": ["prosthetics", "implants"]
+  },
+  {
+    "id": 15,
+    "role": "Эстетист",
+    "name": "Дарья Макарова",
+    "description": "Создание безупречных улыбок с помощью тончайших люминиров.",
+    "imgKey": "doc2",
+    "experience": "6 лет",
+    "categoryIds": ["esthetics"]
+  },
+  {
+    "id": 16,
+    "role": "Имплантолог",
+    "name": "Роман Никитин",
+    "description": "Навигационная хирургия и 3D-планирование имплантации.",
+    "imgKey": "doc1",
+    "experience": "10 лет",
+    "categoryIds": ["implants", "surgery"]
+  },
+  {
+    "id": 17,
+    "role": "Детский врач",
+    "name": "Ксения Егорова",
+    "description": "Адаптация маленьких пациентов и профилактика кариеса.",
+    "imgKey": "doc2",
+    "experience": "9 лет",
+    "categoryIds": ["children"]
+  },
+  {
+    "id": 18,
+    "role": "Хирург-стоматолог",
+    "name": "Владимир Новиков",
+    "description": "Атравматичное удаление зубов мудрости в седации.",
+    "imgKey": "doc4",
+    "experience": "20 лет",
+    "categoryIds": ["surgery"]
+  }
+]

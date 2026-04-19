@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Manrope', sans-serif;
+}
+
+@layer base {
+  html, body {
+    background:
+      radial-gradient(circle at top center, rgba(87, 149, 255, 0.18), transparent 26%),
+      radial-gradient(circle at 80% 30%, rgba(0, 47, 108, 0.08), transparent 22%),
+      linear-gradient(180deg, #f4f8ff 0%, #eef4ff 46%, #edf3ff 100%);
+    color: #1a2d4c !important;
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+}
+
+/* Custom utilities for Glassmorphism */
+@layer utilities {
+  .sd-glass {
+    @apply bg-white/10 backdrop-blur-md border border-white/20 shadow-lg;
+  }
+
+  .sd-glass-panel {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 30px 90px -30px rgba(0, 47, 108, 0.24);
+  }
+  
+  .sd-glass-soft {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+  }
+  
+  .dark .sd-glass {
+    @apply bg-zinc-900/40 border-zinc-700/50;
+  }
+
+  .sd-mobile-text-glow {
+    text-shadow: none;
+  }
+
+  .sd-mobile-text-glow-soft {
+    text-shadow: none;
+  }
+
+  .sd-mobile-center-cta {
+    justify-content: flex-start;
+  }
+
+  .sd_appointment_select {
+    color: #0a3a7b;
+    background-color: rgba(255, 255, 255, 0.64);
+  }
+
+  .sd_appointment_select option {
+    background: #edf3ff;
+    color: #0a3a7b;
+    font-weight: 600;
+  }
+
+  .sd_appointment_select option:checked {
+    background: #2d72dd;
+    color: #ffffff;
+  }
+
+  @media (max-width: 767px) {
+    .sd-glass,
+    .sd-glass-panel,
+    .sd-glass-soft {
+      background: rgba(255, 255, 255, 0.2) !important;
+      backdrop-filter: blur(28px);
+      border-color: rgba(255, 255, 255, 0.34) !important;
+      box-shadow: 0 24px 70px -28px rgba(0, 47, 108, 0.2);
+    }
+
+    .sd-mobile-glass {
+      background: rgba(255, 255, 255, 0.22) !important;
+      backdrop-filter: blur(28px);
+      border: 1px solid rgba(255, 255, 255, 0.36) !important;
+      box-shadow: 0 22px 65px -26px rgba(0, 47, 108, 0.18);
+    }
+
+    .sd-mobile-text-glow {
+      text-shadow:
+        0 0 14px rgba(255, 255, 255, 0.98),
+        0 0 28px rgba(255, 255, 255, 0.92),
+        0 0 42px rgba(255, 255, 255, 0.72);
+    }
+
+    .sd-mobile-text-glow-soft {
+      text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.95),
+        0 0 20px rgba(255, 255, 255, 0.82);
+    }
+
+    .sd-mobile-center-cta {
+      justify-content: center;
+    }
+  }
+}
