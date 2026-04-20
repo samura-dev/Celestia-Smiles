@@ -1,61 +1,57 @@
-import { Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Canvas } from '@react-three/fiber';
-import { Environment, Lightformer, OrbitControls } from '@react-three/drei';
-import { SdLayout } from './components/layout/sd_layout';
-import { Home } from './pages/Home';
-import { Services } from './pages/Services';
-import { About } from './pages/About';
-import { CategoryDetail } from './pages/CategoryDetail';
-import { ServiceDetail } from './pages/ServiceDetail';
-import { Specialists } from './pages/Specialists';
-import { SpecialistDetail } from './pages/SpecialistDetail';
-import { Privacy } from './pages/Privacy';
-import { Sitemap } from './pages/Sitemap';
-import { Legal } from './pages/Legal';
-import { CabinetPlaceholder } from './pages/CabinetPlaceholder';
-import { SdTooth } from './gl/models/sd_Tooth';
+import { Suspense, lazy } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+const SdLayout = lazy(() => import('./components/layout/sd_layout').then((module) => ({ default: module.SdLayout })));
+const Home = lazy(() => import('./pages/Home').then((module) => ({ default: module.Home })));
+const Services = lazy(() => import('./pages/Services').then((module) => ({ default: module.Services })));
+const About = lazy(() => import('./pages/About').then((module) => ({ default: module.About })));
+const CategoryDetail = lazy(() => import('./pages/CategoryDetail').then((module) => ({ default: module.CategoryDetail })));
+const ServiceDetail = lazy(() => import('./pages/ServiceDetail').then((module) => ({ default: module.ServiceDetail })));
+const Specialists = lazy(() => import('./pages/Specialists').then((module) => ({ default: module.Specialists })));
+const SpecialistDetail = lazy(() => import('./pages/SpecialistDetail').then((module) => ({ default: module.SpecialistDetail })));
+const Privacy = lazy(() => import('./pages/Privacy').then((module) => ({ default: module.Privacy })));
+const Sitemap = lazy(() => import('./pages/Sitemap').then((module) => ({ default: module.Sitemap })));
+const Legal = lazy(() => import('./pages/Legal').then((module) => ({ default: module.Legal })));
+const CabinetPlaceholder = lazy(() => import('./pages/CabinetPlaceholder').then((module) => ({ default: module.CabinetPlaceholder })));
+const SdBackgroundCanvas = lazy(() =>
+  import('./gl/SdBackgroundCanvas').then((module) => ({ default: module.SdBackgroundCanvas })),
+);
+
+const SdRouteFallback = () => (
+  <div className="w-full min-h-screen px-[15px] md:px-[40px] pt-28 md:pt-36 pb-24">
+    <div className="mx-auto max-w-[1920px]">
+      <div className="rounded-[34px] border border-white/20 bg-white/55 p-8 text-[#002f6c] backdrop-blur-[24px] shadow-[0_24px_70px_-38px_rgba(0,47,108,0.22)]">
+        Загружаем страницу...
+      </div>
+    </div>
+  </div>
+);
 
 function App() {
   return (
     <BrowserRouter>
-      {/* Global 3D background */}
-      <div className="fixed inset-0 w-full h-full z-0 bg-transparent pointer-events-none">
-        <Canvas camera={{ position: [0, 0, 10], fov: 35 }} dpr={[1, 2]}>
-          <OrbitControls enableZoom={false} enablePan={false} />
-          <color attach="background" args={['#eef4ff']} />
-          <ambientLight intensity={0.6} />
-          <spotLight position={[10, 10, 10]} angle={0.2} penumbra={1} intensity={1} />
-          <directionalLight position={[-10, 0, -5]} intensity={0.5} color="#e6f0ff" />
-          
-          <Suspense fallback={null}>
-            <SdTooth position={[0, 0, 0]} />
-            <Environment preset="city" resolution={512} background={false}>
-              <group rotation={[-Math.PI / 4, -0.3, 0]}>
-                <Lightformer intensity={0.5} rotation-x={Math.PI / 2} position={[0, 5, -9]} scale={[10, 10, 1]} />
-                <Lightformer intensity={0.2} rotation-y={Math.PI / 2} position={[-5, 1, -1]} scale={[10, 2, 1]} />
-              </group>
-            </Environment>
-          </Suspense>
-        </Canvas>
-      </div>
+      <Suspense fallback={null}>
+        <SdBackgroundCanvas />
+      </Suspense>
 
-      <div className="relative z-10 w-full min-h-screen pointer-events-auto">
-        <Routes>
-          <Route path="/" element={<SdLayout />}>
-            <Route index element={<Home />} />
-            <Route path="about" element={<About />} />
-            <Route path="services" element={<Services />} />
-            <Route path="services/:categoryId" element={<CategoryDetail />} />
-            <Route path="services/:categoryId/:serviceId" element={<ServiceDetail />} />
-            <Route path="doctors" element={<Specialists />} />
-            <Route path="doctors/:specialistId" element={<SpecialistDetail />} />
-            <Route path="privacy" element={<Privacy />} />
-            <Route path="sitemap" element={<Sitemap />} />
-            <Route path="legal" element={<Legal />} />
-            <Route path="cabinet" element={<CabinetPlaceholder />} />
-          </Route>
-        </Routes>
+      <div className="relative z-10 min-h-screen w-full pointer-events-auto">
+        <Suspense fallback={<SdRouteFallback />}>
+          <Routes>
+            <Route path="/" element={<SdLayout />}>
+              <Route index element={<Home />} />
+              <Route path="about" element={<About />} />
+              <Route path="services" element={<Services />} />
+              <Route path="services/:categoryId" element={<CategoryDetail />} />
+              <Route path="services/:categoryId/:serviceId" element={<ServiceDetail />} />
+              <Route path="doctors" element={<Specialists />} />
+              <Route path="doctors/:specialistId" element={<SpecialistDetail />} />
+              <Route path="privacy" element={<Privacy />} />
+              <Route path="sitemap" element={<Sitemap />} />
+              <Route path="legal" element={<Legal />} />
+              <Route path="cabinet" element={<CabinetPlaceholder />} />
+            </Route>
+          </Routes>
+        </Suspense>
       </div>
     </BrowserRouter>
   );

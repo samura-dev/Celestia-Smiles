@@ -1,7 +1,12 @@
 import { useMemo, useState } from 'react';
 import { CalendarDays, ChevronDown, Clock3, Stethoscope, UserRound, X } from 'lucide-react';
-import { sd_servicesData } from '../../data/sd_services';
-import { sd_specialistsData, type SdCategoryId } from '../../data/sd_specialists';
+import { useNavigate } from 'react-router-dom';
+import {
+  sd_cabinetDirections,
+  sd_createCabinetAppointmentForActiveSession,
+  sd_getDoctorsByDirection,
+  sd_setPendingCabinetBooking,
+} from '../../cabinet/sd_cabinetStorage';
 
 interface SdAppointmentModalProps {
   sd_initialDirectionId?: string | null;
@@ -33,24 +38,23 @@ export const SdAppointmentModal = ({
   sd_initialDoctorId,
   sd_onClose,
 }: SdAppointmentModalProps) => {
-  const sd_directionOptions = useMemo(
-    () => sd_servicesData.map((category) => ({ id: category.id as SdCategoryId, title: category.title })),
-    []
-  );
+  const sd_navigate = useNavigate();
+  const sd_directionOptions = useMemo(() => sd_cabinetDirections, []);
 
-  const sd_defaultDirection = sd_directionOptions.find((option) => option.id === sd_initialDirectionId)?.id
-    ?? sd_directionOptions[0]?.id
-    ?? 'therapy';
+  const sd_defaultDirection =
+    sd_directionOptions.find((option) => option.id === sd_initialDirectionId)?.id ??
+    sd_directionOptions[0]?.id ??
+    'therapy';
 
-  const [sd_directionId, setSdDirectionId] = useState<SdCategoryId>(sd_defaultDirection);
+  const [sd_directionId, setSdDirectionId] = useState<string>(sd_defaultDirection);
   const [sd_doctorId, setSdDoctorId] = useState<number | null>(sd_initialDoctorId ?? null);
   const [sd_date, setSdDate] = useState<string>(sd_today);
   const [sd_time, setSdTime] = useState<string>('');
-  const [sd_submitted, setSdSubmitted] = useState(false);
+  const [sd_successMessage, setSdSuccessMessage] = useState('');
 
   const sd_doctorsByDirection = useMemo(
-    () => sd_specialistsData.filter((doctor) => doctor.categoryIds.includes(sd_directionId)),
-    [sd_directionId]
+    () => sd_getDoctorsByDirection(sd_directionId),
+    [sd_directionId],
   );
 
   const sd_effectiveDoctorId = sd_doctorsByDirection.some((doctor) => doctor.id === sd_doctorId)
@@ -73,13 +77,32 @@ export const SdAppointmentModal = ({
 
   const sd_effectiveTime = sd_slots.includes(sd_time) ? sd_time : '';
   const sd_selectedDirection = sd_directionOptions.find((option) => option.id === sd_directionId);
-  const sd_selectedDoctor = sd_specialistsData.find((doctor) => doctor.id === sd_effectiveDoctorId);
+  const sd_selectedDoctor = sd_doctorsByDirection.find((doctor) => doctor.id === sd_effectiveDoctorId);
   const sd_canSubmit = Boolean(sd_directionId && sd_effectiveDoctorId && sd_date && sd_effectiveTime);
 
   const sd_handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!sd_canSubmit) return;
-    setSdSubmitted(true);
+    if (!sd_canSubmit || !sd_selectedDirection || !sd_selectedDoctor) return;
+
+    const sd_bookingPayload = {
+      directionId: sd_selectedDirection.id,
+      directionTitle: sd_selectedDirection.title,
+      doctor: sd_selectedDoctor,
+      date: sd_date,
+      time: sd_effectiveTime,
+    };
+
+    const sd_updatedUser = sd_createCabinetAppointmentForActiveSession(sd_bookingPayload);
+
+    if (sd_updatedUser) {
+      setSdSuccessMessage('Запись сохранена. Она уже появилась в разделе «Мои приемы».');
+      window.dispatchEvent(new CustomEvent('sd:cabinet-booking-created'));
+      return;
+    }
+
+    sd_setPendingCabinetBooking(sd_bookingPayload);
+    sd_onClose();
+    sd_navigate('/cabinet?mode=register&section=booking&pendingBooking=1');
   };
 
   return (
@@ -120,9 +143,10 @@ export const SdAppointmentModal = ({
                 <select
                   value={sd_directionId}
                   onChange={(event) => {
-                    setSdDirectionId(event.target.value as SdCategoryId);
+                    setSdDirectionId(event.target.value);
                     setSdDoctorId(null);
                     setSdTime('');
+                    setSdSuccessMessage('');
                   }}
                   className="sd_appointment_select h-11 w-full appearance-none rounded-xl border border-[#0055ff]/25 bg-white/[0.6] pl-4 pr-11 text-[#002f6c] font-semibold outline-none transition-all focus:border-[#0055ff]/60 focus:ring-2 focus:ring-[#0055ff]/15 hover:border-[#0055ff]/45"
                 >
@@ -147,6 +171,7 @@ export const SdAppointmentModal = ({
                   onChange={(event) => {
                     setSdDoctorId(Number(event.target.value));
                     setSdTime('');
+                    setSdSuccessMessage('');
                   }}
                   className="sd_appointment_select h-11 w-full appearance-none rounded-xl border border-[#0055ff]/25 bg-white/[0.6] pl-4 pr-11 text-[#002f6c] font-semibold outline-none transition-all focus:border-[#0055ff]/60 focus:ring-2 focus:ring-[#0055ff]/15 hover:border-[#0055ff]/45"
                 >
@@ -170,7 +195,10 @@ export const SdAppointmentModal = ({
                 type="date"
                 min={sd_today}
                 value={sd_date}
-                onChange={(event) => setSdDate(event.target.value)}
+                onChange={(event) => {
+                  setSdDate(event.target.value);
+                  setSdSuccessMessage('');
+                }}
                 className="h-11 rounded-xl border border-white/30 bg-white/[0.5] px-4 text-[#002f6c] font-medium outline-none focus:border-[#0055ff]/60 focus:ring-2 focus:ring-[#0055ff]/15"
               />
             </label>
@@ -185,7 +213,10 @@ export const SdAppointmentModal = ({
                   <button
                     key={slot}
                     type="button"
-                    onClick={() => setSdTime(slot)}
+                    onClick={() => {
+                      setSdTime(slot);
+                      setSdSuccessMessage('');
+                    }}
                     className={`h-10 rounded-xl text-sm font-bold transition-all border ${
                       sd_effectiveTime === slot
                         ? 'bg-[#0055ff] text-white border-[#0055ff]'
@@ -213,11 +244,15 @@ export const SdAppointmentModal = ({
               </div>
               <div className="rounded-xl bg-white/[0.55] border border-white/30 p-3">
                 <div className="text-[10px] uppercase tracking-[0.16em] text-slate-400 font-black mb-1">Врач</div>
-                <div className="font-bold text-sm">{sd_selectedDoctor ? `${sd_selectedDoctor.name}, ${sd_selectedDoctor.role}` : 'Не выбран'}</div>
+                <div className="font-bold text-sm">
+                  {sd_selectedDoctor ? `${sd_selectedDoctor.name}, ${sd_selectedDoctor.role}` : 'Не выбран'}
+                </div>
               </div>
               <div className="rounded-xl bg-white/[0.55] border border-white/30 p-3">
                 <div className="text-[10px] uppercase tracking-[0.16em] text-slate-400 font-black mb-1">Дата и время</div>
-                <div className="font-bold text-sm">{sd_date ? `${sd_date}${sd_effectiveTime ? `, ${sd_effectiveTime}` : ''}` : 'Не выбрано'}</div>
+                <div className="font-bold text-sm">
+                  {sd_date ? `${sd_date}${sd_effectiveTime ? `, ${sd_effectiveTime}` : ''}` : 'Не выбрано'}
+                </div>
               </div>
             </div>
 
@@ -229,12 +264,10 @@ export const SdAppointmentModal = ({
               Подтвердить запись
             </button>
 
-            {sd_submitted && sd_canSubmit && (
+            {sd_successMessage && (
               <div className="mt-4 rounded-xl border border-[#0055ff]/30 bg-[#0055ff]/10 p-3">
                 <div className="text-[#002f6c] font-black text-[11px] uppercase tracking-[0.15em] mb-1">Запись создана</div>
-                <p className="text-slate-600 font-medium text-xs leading-relaxed">
-                  Заявка принята. Администратор свяжется с вами для финального подтверждения времени.
-                </p>
+                <p className="text-slate-600 font-medium text-xs leading-relaxed">{sd_successMessage}</p>
               </div>
             )}
           </aside>
