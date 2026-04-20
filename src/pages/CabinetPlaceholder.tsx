@@ -70,7 +70,7 @@ export const CabinetPlaceholder = () => {
   if (!sd_isHydrated) {
     return (
       <div className="w-full min-h-screen pt-32 md:pt-40 pb-24 px-[15px] md:px-[40px]">
-        <div className="max-w-[1320px] mx-auto rounded-[34px] border border-white/20 bg-white/55 backdrop-blur-[24px] p-8 text-[#002f6c]">
+        <div className="max-w-[1920px] mx-auto rounded-[34px] border border-white/20 bg-white/55 backdrop-blur-[24px] p-8 text-[#002f6c]">
           Загружаем кабинет пациента...
         </div>
       </div>

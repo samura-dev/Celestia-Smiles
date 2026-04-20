@@ -22,8 +22,8 @@ export const SdCabinetAuthScreen = () => {
   const { sd_register, sd_login, sd_error, sd_clearError, sd_isBusy } = useSdCabinetStore();
 
   return (
-    <div className="w-full min-h-screen pt-28 md:pt-36 pb-20 px-[15px] md:px-[40px]">
-      <div className="max-w-[1320px] mx-auto">
+    <div className="w-full min-h-screen pt-28 md:pt-36 pb-20 px-[15px] md:px-[40px] overflow-x-clip">
+      <div className="max-w-[1920px] mx-auto">
         <div className="mb-8">
           <Link
             to="/"
@@ -34,8 +34,8 @@ export const SdCabinetAuthScreen = () => {
           </Link>
         </div>
 
-        <div className="grid xl:grid-cols-[1.1fr_0.9fr] gap-6 xl:gap-8">
-          <section className="rounded-[42px] border border-white/18 bg-white/50 backdrop-blur-[26px] shadow-[0_30px_90px_-45px_rgba(0,47,108,0.32)] p-6 md:p-8 lg:p-10 overflow-hidden relative">
+        <div className="grid xl:grid-cols-[minmax(0,1.16fr)_minmax(560px,0.84fr)] gap-6 xl:gap-8">
+          <section className="rounded-[42px] border border-white/18 bg-white/50 backdrop-blur-[26px] shadow-[0_30px_90px_-45px_rgba(0,47,108,0.32)] p-6 md:p-8 lg:p-10 overflow-hidden relative min-w-0">
             <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_top_right,rgba(0,85,255,0.18),transparent_32%),radial-gradient(circle_at_bottom_left,rgba(0,47,108,0.08),transparent_36%)]" />
 
             <div className="relative z-10">
@@ -44,16 +44,19 @@ export const SdCabinetAuthScreen = () => {
                   <ShieldCheck className="w-5 h-5 text-[#0055ff]" />
                 </div>
                 <div>
-                  <p className="text-[11px] uppercase tracking-[0.26em] font-black text-[#0055ff]">Личный кабинет</p>
+                  <p className="text-[11px] uppercase tracking-[0.26em] font-black text-[#0055ff]">
+                    Личный кабинет
+                  </p>
                   <p className="text-sm text-[#002f6c]/60">Пациентское пространство Celestia Smiles</p>
                 </div>
               </div>
 
-              <h1 className="max-w-[760px] text-4xl md:text-6xl lg:text-7xl font-medium tracking-tight leading-[0.94] text-[#002f6c]">
+              <h1 className="max-w-[820px] text-4xl md:text-6xl lg:text-7xl font-medium tracking-tight leading-[0.94] text-[#002f6c]">
                 Все визиты, план лечения и финансы в одном кабинете
               </h1>
-              <p className="mt-6 max-w-[680px] text-base md:text-xl text-[#002f6c]/68 leading-relaxed">
-                Без звонков и хаоса: следим за этапами лечения, смотрим документы, бронируем новые приемы и контролируем внутренний баланс прямо с телефона.
+              <p className="mt-6 max-w-[760px] text-base md:text-xl text-[#002f6c]/68 leading-relaxed">
+                Без звонков и хаоса: следим за этапами лечения, смотрим документы, бронируем новые
+                приемы и контролируем внутренний баланс прямо с телефона.
               </p>
 
               <div className="grid md:grid-cols-2 gap-4 mt-8">
@@ -77,7 +80,7 @@ export const SdCabinetAuthScreen = () => {
             </div>
           </section>
 
-          <section className="rounded-[42px] border border-white/20 bg-[#eff5ff]/82 backdrop-blur-[28px] shadow-[0_30px_90px_-45px_rgba(0,47,108,0.36)] p-6 md:p-8">
+          <section className="rounded-[42px] border border-white/20 bg-[#eff5ff]/82 backdrop-blur-[28px] shadow-[0_30px_90px_-45px_rgba(0,47,108,0.36)] p-6 md:p-8 min-w-0">
             <div className="flex rounded-full border border-white/25 bg-white/45 p-1 w-full max-w-[320px]">
               {[
                 { id: 'register', label: 'Регистрация' },
@@ -126,7 +129,9 @@ export const SdCabinetAuthScreen = () => {
               {sd_mode === 'register' ? (
                 <>
                   <label className="block">
-                    <span className="text-[11px] uppercase tracking-[0.24em] font-black text-[#7b95bf]">ФИО</span>
+                    <span className="text-[11px] uppercase tracking-[0.24em] font-black text-[#7b95bf]">
+                      ФИО
+                    </span>
                     <input
                       value={sd_registerForm.fullName}
                       onChange={(event) =>
@@ -138,7 +143,9 @@ export const SdCabinetAuthScreen = () => {
                     />
                   </label>
                   <label className="block">
-                    <span className="text-[11px] uppercase tracking-[0.24em] font-black text-[#7b95bf]">Телефон</span>
+                    <span className="text-[11px] uppercase tracking-[0.24em] font-black text-[#7b95bf]">
+                      Телефон
+                    </span>
                     <input
                       value={sd_registerForm.phone}
                       onChange={(event) =>
@@ -153,7 +160,9 @@ export const SdCabinetAuthScreen = () => {
               ) : null}
 
               <label className="block">
-                <span className="text-[11px] uppercase tracking-[0.24em] font-black text-[#7b95bf]">Email</span>
+                <span className="text-[11px] uppercase tracking-[0.24em] font-black text-[#7b95bf]">
+                  Email
+                </span>
                 <input
                   type="email"
                   value={sd_mode === 'register' ? sd_registerForm.email : sd_loginForm.email}
@@ -169,7 +178,9 @@ export const SdCabinetAuthScreen = () => {
               </label>
 
               <label className="block">
-                <span className="text-[11px] uppercase tracking-[0.24em] font-black text-[#7b95bf]">Пароль</span>
+                <span className="text-[11px] uppercase tracking-[0.24em] font-black text-[#7b95bf]">
+                  Пароль
+                </span>
                 <input
                   type="password"
                   minLength={6}
@@ -201,7 +212,8 @@ export const SdCabinetAuthScreen = () => {
             </form>
 
             <p className="mt-5 text-sm text-[#002f6c]/55 leading-relaxed">
-              Все данные хранятся локально в этом браузере. Это демо-кабинет без сервера, но со всей пользовательской логикой.
+              Все данные хранятся локально в этом браузере. Это демо-кабинет без сервера, но со
+              всей пользовательской логикой.
             </p>
           </section>
         </div>

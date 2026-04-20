@@ -46,10 +46,12 @@ export const SdCabinetAuthenticated = ({ sd_user }: { sd_user: SdCabinetUser }) 
 
   return (
     <div className="w-full min-h-screen pt-28 md:pt-36 pb-24 px-[15px] md:px-[40px] overflow-x-clip">
-      <div className="max-w-[1380px] mx-auto">
-        <div className="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+      <div className="max-w-[1920px] mx-auto">
+        <div className="mb-8 flex flex-col xl:flex-row xl:items-end xl:justify-between gap-4">
           <div>
-            <p className="text-[11px] uppercase tracking-[0.28em] font-black text-[#7b95bf]">Личный кабинет</p>
+            <p className="text-[11px] uppercase tracking-[0.28em] font-black text-[#7b95bf]">
+              Личный кабинет
+            </p>
             <h1 className="mt-3 text-4xl md:text-6xl font-medium tracking-tight text-[#002f6c]">
               Кабинет пациента Celestia Smiles
             </h1>
@@ -64,7 +66,7 @@ export const SdCabinetAuthenticated = ({ sd_user }: { sd_user: SdCabinetUser }) 
           </div>
         </div>
 
-        <div className="grid xl:grid-cols-[300px_minmax(0,1fr)] gap-6">
+        <div className="grid xl:grid-cols-[320px_minmax(0,1fr)] gap-6">
           <aside className="rounded-[34px] border border-white/20 bg-white/55 backdrop-blur-[28px] p-4 md:p-5 h-fit xl:sticky xl:top-32">
             <div className="rounded-[28px] bg-[#002f6c] text-white p-5 md:p-6">
               <p className="text-[10px] uppercase tracking-[0.22em] font-black text-white/55">Профиль</p>
@@ -72,7 +74,9 @@ export const SdCabinetAuthenticated = ({ sd_user }: { sd_user: SdCabinetUser }) 
               <p className="mt-2 text-sm text-white/68">{sd_user.profile.phone}</p>
               <p className="mt-1 text-sm text-white/68">{sd_user.profile.email}</p>
               <div className="mt-5 rounded-[20px] bg-white/10 px-4 py-4">
-                <p className="text-[10px] uppercase tracking-[0.18em] font-black text-white/55">Лояльность</p>
+                <p className="text-[10px] uppercase tracking-[0.18em] font-black text-white/55">
+                  Лояльность
+                </p>
                 <p className="mt-2 text-xl font-semibold">{sd_user.profile.loyaltyLevel}</p>
               </div>
             </div>
@@ -98,7 +102,11 @@ export const SdCabinetAuthenticated = ({ sd_user }: { sd_user: SdCabinetUser }) 
                     }`}
                   >
                     <div className="flex items-start gap-3">
-                      <div className={`w-10 h-10 rounded-[16px] flex items-center justify-center ${sd_isActive ? 'bg-[#0055ff]/12 text-[#0055ff]' : 'bg-white/70 text-[#7b95bf]'}`}>
+                      <div
+                        className={`w-10 h-10 rounded-[16px] flex items-center justify-center ${
+                          sd_isActive ? 'bg-[#0055ff]/12 text-[#0055ff]' : 'bg-white/70 text-[#7b95bf]'
+                        }`}
+                      >
                         <Icon className="w-4 h-4" />
                       </div>
                       <div>
@@ -130,7 +138,9 @@ export const SdCabinetAuthenticated = ({ sd_user }: { sd_user: SdCabinetUser }) 
                 <div className="w-11 h-11 rounded-[16px] bg-[#0055ff]/10 flex items-center justify-center">
                   <item.icon className="w-5 h-5 text-[#0055ff]" />
                 </div>
-                <p className="mt-4 text-[10px] uppercase tracking-[0.18em] font-black text-[#7b95bf]">{item.title}</p>
+                <p className="mt-4 text-[10px] uppercase tracking-[0.18em] font-black text-[#7b95bf]">
+                  {item.title}
+                </p>
                 <p className="mt-2 text-2xl font-semibold text-[#002f6c]">{item.value}</p>
                 <p className="mt-3 text-sm text-[#002f6c]/62 leading-relaxed">{item.text}</p>
               </div>
