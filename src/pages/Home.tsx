@@ -15,8 +15,8 @@ export const Home = () => {
         
         {/* Left Text Block */}
         <motion.div 
-          initial={{ opacity: 0, x: -80 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ x: -80 }}
+          animate={{ x: 0 }}
           transition={{ duration: 1.2, type: "spring", bounce: 0.2, delay: 0.1 }}
           className="sd_hero_left w-full lg:w-auto lg:max-w-[50vw] flex flex-col gap-6 md:gap-12 pointer-events-auto z-20 shrink-0 lg:-translate-y-[50px] items-center lg:items-start text-center lg:text-left"
         >
@@ -32,8 +32,8 @@ export const Home = () => {
 
         {/* Right Text Block & Button */}
         <motion.div 
-          initial={{ opacity: 0, x: 80 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ x: 80 }}
+          animate={{ x: 0 }}
           transition={{ duration: 1.2, type: "spring", bounce: 0.2, delay: 0.3 }}
           className="sd_hero_right w-full lg:w-auto flex flex-col items-center lg:items-start gap-8 md:gap-16 pointer-events-auto z-20 lg:mt-32 shrink-0 lg:-translate-y-[50px] text-center lg:text-left"
         >
@@ -47,8 +47,8 @@ export const Home = () => {
 
         {/* Watermark Text - Re-imagined for Mobile */}
         <motion.div 
-          initial={{ opacity: 0, y: 50, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
+          initial={{ y: 50, scale: 0.95 }}
+          animate={{ y: 0, scale: 1 }}
           transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
           className="sd_hero_watermark absolute bottom-[40px] left-0 w-full text-center z-10 pointer-events-none px-[15px]"
         >
